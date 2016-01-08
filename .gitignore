@@ -10,3 +10,10 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+NHL Stream rip/.classpath
+NHL Stream rip/.project
+NHL Stream rip/.settings/org.eclipse.core.resources.prefs
+NHL Stream rip/.settings/org.eclipse.jdt.apt.core.prefs
+NHL Stream rip/.settings/org.eclipse.jdt.core.prefs
+NHL Stream rip/.settings/org.eclipse.m2e.core.prefs
+NHL Stream rip/src/main/java/org/hannes/App.java
