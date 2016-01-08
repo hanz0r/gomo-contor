@@ -44,41 +44,23 @@ public class GomoContor {
 			return result;
 		});
 	}
-	
-	/**
-	 * Credits go to https://bitbucket.org/ntyler92/
-	 * 
-	 * @param date
-	 * @return
-	 */
-	@Deprecated
-    public String getSeason(String date) {
-        String year, month;
-        if (!date.contains("/")) {
-            month = date.substring(4, 6);
-            year = date.substring(0, 4);
-        } else {
-            year = date.substring(6, date.length());
-            month = date.substring(0, 2);
-        }
-
-        int y = Integer.parseInt(year), m = Integer.parseInt(month);
-
-        if (m >= 1 && m <= 8) {
-            y--;
-        }
-        m = y++;
-        return "" + m + y;
-    }
     
     /**
+     * Gets the season according from the date string. The date string must be of
+     * yyyyMMdd for it to be parsed correctly.
+     * 
+     * The NHL season runs approximately from october -> june so if the month is
+     * between 1 and 8, it is in the first year of the season and if it is after,
+     * it is from the next.
+     * 
+     * For example -> the 2015 - 2016 season runs from October 2015 until June 2016.
      * 
      * @param date
      * @return
      */
     public static String toSeason(String date) {
     	if (date == null || !date.matches(DATE_PATTERN)) {
-    		throw new IllegalArgumentException(String.format("date must be of format yyyyddMM - %s", date));
+    		throw new IllegalArgumentException(String.format("date must be of format yyyyMMdd - %s", date));
     	}
     	int year = Integer.parseInt(date.substring(0, 4));
     	int month = Integer.parseInt(date.substring(4, 6));

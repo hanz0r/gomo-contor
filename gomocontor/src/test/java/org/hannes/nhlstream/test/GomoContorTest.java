@@ -21,13 +21,12 @@ public class GomoContorTest {
 
 	private final GomoContor application = new GomoContor();
 
-	@SuppressWarnings("deprecation")
 	@Test
 	public void test_season() throws InterruptedException, ExecutionException {
 		List<Game> games = application.get(new SearchRequest(GomoContor.toSeason("20160107"))).get();
 		games.forEach(game -> {
 			String date = game.getDate().split(" ")[0];
-			assertEquals(application.getSeason(date), GomoContor.toSeason(date));
+			assertEquals(getSeason(date), GomoContor.toSeason(date));
 		});
 	}
 
@@ -47,5 +46,30 @@ public class GomoContorTest {
 		assertNotNull(information.getPlatform().getHome());
 		assertNotNull(information.getPlatform().getAway());
 	}
+	
+	/**
+	 * Credits go to https://bitbucket.org/ntyler92/
+	 * 
+	 * @param date
+	 * @return
+	 */
+    public String getSeason(String date) {
+        String year, month;
+        if (!date.contains("/")) {
+            month = date.substring(4, 6);
+            year = date.substring(0, 4);
+        } else {
+            year = date.substring(6, date.length());
+            month = date.substring(0, 2);
+        }
+
+        int y = Integer.parseInt(year), m = Integer.parseInt(month);
+
+        if (m >= 1 && m <= 8) {
+            y--;
+        }
+        m = y++;
+        return "" + m + y;
+    }
 	
 }
