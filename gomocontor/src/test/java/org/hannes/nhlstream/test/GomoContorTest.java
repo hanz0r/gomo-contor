@@ -1,5 +1,7 @@
 package org.hannes.nhlstream.test;
 
+import static org.junit.Assert.*;
+
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -11,19 +13,19 @@ import org.hannes.nhlstream.request.VODRequest;
 import org.junit.Test;
 
 /**
- * 
+ * Various tests for the Gomocontor class
  * @author brock
  *
  */
-public class NHLStreamTest {
+public class GomoContorTest {
 
 	private final GomoContor application = new GomoContor();
 
 	@Test
 	public void test_search() throws InterruptedException, ExecutionException {
 		List<Game> games = application.get(new SearchRequest(application.getSeason("20160107"))).get();
-		System.out.printf("%d games found%n", games.size());
-		System.out.println("example: " + games.stream().findAny().get());
+		assertNotNull(games);
+		assertEquals(games.size(), 1230);
 	}
 	
 	@Test
@@ -31,7 +33,9 @@ public class NHLStreamTest {
 		List<Game> games = application.get(new SearchRequest(application.getSeason("20160107"))).get();
 		Game ranger_game = games.stream().filter(game -> game.getHomeTeam().equals("NYR")).findAny().get();
 		GameInformation information = application.get(new VODRequest(ranger_game)).get();
-		System.out.println(information);
+		assertNotNull(information.getPlatform());
+		assertNotNull(information.getPlatform().getHome());
+		assertNotNull(information.getPlatform().getAway());
 	}
-
+	
 }

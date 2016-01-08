@@ -8,6 +8,12 @@ import org.hannes.nhlstream.request.Request;
 
 import com.google.gson.Gson;
 
+/**
+ * Like a container class for the application
+ * 
+ * @author brock
+ *
+ */
 public class GomoContor {
 
 	/**
@@ -21,17 +27,25 @@ public class GomoContor {
 	private final Gson gson = new Gson();
 
 	/**
+	 * Executes a request
 	 * 
 	 * @param request
 	 * @return
 	 */
 	public <T> Future<T> get(Request<T> request) {
 		return service.submit(() -> {
-			return request.request(service, gson);
+			T result = request.request(service, gson);
+			request.fireCompleted(result);
+			return result;
 		});
 	}
 	
-
+	/**
+	 * Credits go to https://bitbucket.org/ntyler92/
+	 * 
+	 * @param date
+	 * @return
+	 */
     public String getSeason(String date) {
         String year, month;
         if (!date.contains("/")) {

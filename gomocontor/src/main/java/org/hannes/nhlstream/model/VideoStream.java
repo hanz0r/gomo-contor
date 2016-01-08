@@ -9,6 +9,9 @@ import com.google.gson.annotations.SerializedName;
  *
  */
 public class VideoStream {
+	
+//	private static final String DESKTOP_URL = "http://nlds150.cdnl3nl.neulion.com/nlds_vod/nhl/vod";
+//	private static final String MOBILE_URL = "http://nlds150.cdnak.neulion.com/nlds_vod/nhl/vod";
 
 	/**
 	 * The link to the broadcast
@@ -21,6 +24,7 @@ public class VideoStream {
 	 */
 	@SerializedName("image")
 	private String image;
+
 
 	public String getUrl() {
 		return url;

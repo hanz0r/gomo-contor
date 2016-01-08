@@ -12,7 +12,13 @@ import org.hannes.nhlstream.model.Game;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-public class SearchRequest implements Request<List<Game>> {
+/**
+ * Looks up the games for a given season
+ * 
+ * @author brock
+ *
+ */
+public class SearchRequest extends AbstractRequest<List<Game>> {
 
 	/**
 	 * The unformatted string to the location of the games played for the specified season

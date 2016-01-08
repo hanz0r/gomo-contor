@@ -11,9 +11,16 @@ import org.hannes.nhlstream.model.GameInformation;
 
 import com.google.gson.Gson;
 
-public class VODRequest implements Request<GameInformation> {
+/**
+ * Requests the information for all of the links to the video streams
+ * 
+ * @author brock
+ *
+ */
+public class VODRequest extends AbstractRequest<GameInformation> {
 	
 	/**
+	 * 
 	 * The unformatted url to the location of the 
 	 */
 	private static final String UNFORMATTED_URL = "http://smb.cdnak.neulion.com/fs/nhl/mobile/feed_new/data/streams/%s/ipad/%s_%s.json";
@@ -23,10 +30,20 @@ public class VODRequest implements Request<GameInformation> {
 	 */
 	private final String id;
 
+	/**
+	 * Makes a vod request for the given game.
+	 * 
+	 * @param game
+	 */
 	public VODRequest(Game game) {
 		this.id = game.getId();
 	}
 	
+	/**
+	 * Makes a vod request for the game with the given game id
+	 * 
+	 * @param id
+	 */
 	public VODRequest(String id) {
 		this.id = id;
 	}
