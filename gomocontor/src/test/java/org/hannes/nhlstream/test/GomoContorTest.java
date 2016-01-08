@@ -23,10 +23,12 @@ public class GomoContorTest {
 
 	@SuppressWarnings("deprecation")
 	@Test
-	public void test_season() {
-		assertEquals(application.getSeason("20160107"), GomoContor.toSeason("20160107"));
-		assertEquals(application.getSeason("20160807"), GomoContor.toSeason("20160807"));
-		assertEquals(application.getSeason("20150107"), GomoContor.toSeason("20150107"));
+	public void test_season() throws InterruptedException, ExecutionException {
+		List<Game> games = application.get(new SearchRequest(GomoContor.toSeason("20160107"))).get();
+		games.forEach(game -> {
+			String date = game.getDate().split(" ")[0];
+			assertEquals(application.getSeason(date), GomoContor.toSeason(date));
+		});
 	}
 
 	@Test

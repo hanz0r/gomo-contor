@@ -78,10 +78,10 @@ public class GomoContor {
      */
     public static String toSeason(String date) {
     	if (date == null || !date.matches(DATE_PATTERN)) {
-    		throw new IllegalArgumentException("date must be of format yyyyddMM");
+    		throw new IllegalArgumentException(String.format("date must be of format yyyyddMM - %s", date));
     	}
     	int year = Integer.parseInt(date.substring(0, 4));
-    	int month = Integer.parseInt(date.substring(6, date.length()));
+    	int month = Integer.parseInt(date.substring(4, 6));
     	return month >= 1 && month <= 8 ? String.format("%d%d", year - 1, year) : String.format("%d%d", year, year + 1);
     }
 
