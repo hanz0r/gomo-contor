@@ -21,17 +21,21 @@ public class VODRequest implements Request<GameInformation> {
 	/**
 	 * The game you are looking up
 	 */
-	private final Game game;
+	private final String id;
 
 	public VODRequest(Game game) {
-		this.game = game;
+		this.id = game.getId();
+	}
+	
+	public VODRequest(String id) {
+		this.id = id;
 	}
 
 	@Override
 	public GameInformation request(ExecutorService service, Gson gson) throws IOException {
-		String season_id = game.getId().substring(0, 4);
-		String part_1 = game.getId().substring(4, 6);
-		String part_2 = game.getId().substring(6);
+		String season_id = id.substring(0, 4);
+		String part_1 = id.substring(4, 6);
+		String part_2 = id.substring(6);
 		URL url = new URL(String.format(UNFORMATTED_URL, season_id, part_1, part_2));
 		Reader reader = new InputStreamReader(url.openStream());
 		return gson.fromJson(reader, GameInformation.class);
