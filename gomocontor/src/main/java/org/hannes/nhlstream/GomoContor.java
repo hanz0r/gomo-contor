@@ -58,13 +58,28 @@ public class GomoContor {
      * @param date
      * @return
      */
-    public static String toSeason(String date) {
-    	if (date == null || !date.matches(DATE_PATTERN)) {
+    public static String getSeason(String date) {
+    	if (date == null || !date.matches(DATE_PATTERN))
     		throw new IllegalArgumentException(String.format("date must be of format yyyyMMdd - %s", date));
-    	}
-    	int year = Integer.parseInt(date.substring(0, 4));
-    	int month = Integer.parseInt(date.substring(4, 6));
-    	return month >= 1 && month <= 8 ? String.format("%d%d", year - 1, year) : String.format("%d%d", year, year + 1);
+    	return getSeason(Integer.parseInt(date.substring(0, 4)), Integer.parseInt(date.substring(4, 6)));
     }
 
+    /**
+    * Gets the season according from the date string. The date string must be of
+    * yyyyMMdd for it to be parsed correctly.
+    * 
+    * The NHL season runs approximately from october -> june so if the month is
+    * between 1 and 8, it is in the first year of the season and if it is after,
+    * it is from the next.
+    * 
+    * For example -> the 2015 - 2016 season runs from October 2015 until June 2016.
+    * 
+    * @param year
+    * @param month
+    * @return
+    */
+    public static String getSeason(int year, int month) {
+    	return month >= 1 && month <= 8 ? String.format("%d%d", year - 1, year) : String.format("%d%d", year, year + 1);
+    }
+ 
 }

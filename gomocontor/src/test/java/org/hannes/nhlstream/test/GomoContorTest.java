@@ -23,23 +23,23 @@ public class GomoContorTest {
 
 	@Test
 	public void test_season() throws InterruptedException, ExecutionException {
-		List<Game> games = application.get(new SearchRequest(GomoContor.toSeason("20160107"))).get();
+		List<Game> games = application.get(new SearchRequest(GomoContor.getSeason("20160107"))).get();
 		games.forEach(game -> {
 			String date = game.getDate().split(" ")[0];
-			assertEquals(getSeason(date), GomoContor.toSeason(date));
+			assertEquals(getSeason(date), GomoContor.getSeason(date));
 		});
 	}
 
 	@Test
 	public void test_search() throws InterruptedException, ExecutionException {
-		List<Game> games = application.get(new SearchRequest(GomoContor.toSeason("20160107"))).get();
+		List<Game> games = application.get(new SearchRequest(GomoContor.getSeason("20160107"))).get();
 		assertNotNull(games);
 		assertEquals(games.size(), 1230);
 	}
 	
 	@Test
 	public void test_vod() throws InterruptedException, ExecutionException {
-		List<Game> games = application.get(new SearchRequest(GomoContor.toSeason("20160107"))).get();
+		List<Game> games = application.get(new SearchRequest(GomoContor.getSeason("20160107"))).get();
 		Game ranger_game = games.stream().filter(game -> game.getHomeTeam().equals("NYR")).findAny().get();
 		GameInformation information = application.get(new VODRequest(ranger_game)).get();
 		assertNotNull(information.getPlatform());
