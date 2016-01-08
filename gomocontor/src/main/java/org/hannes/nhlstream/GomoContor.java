@@ -17,6 +17,11 @@ import com.google.gson.Gson;
 public class GomoContor {
 
 	/**
+	 * The pattern the input date must adhere to
+	 */
+	private static final String DATE_PATTERN = "[0-9]{8}";
+	
+	/**
 	 * The executor service
 	 */
 	private final ExecutorService service = Executors.newCachedThreadPool();
@@ -46,6 +51,7 @@ public class GomoContor {
 	 * @param date
 	 * @return
 	 */
+	@Deprecated
     public String getSeason(String date) {
         String year, month;
         if (!date.contains("/")) {
@@ -63,6 +69,20 @@ public class GomoContor {
         }
         m = y++;
         return "" + m + y;
+    }
+    
+    /**
+     * 
+     * @param date
+     * @return
+     */
+    public static String toSeason(String date) {
+    	if (date == null || !date.matches(DATE_PATTERN)) {
+    		throw new IllegalArgumentException("date must be of format yyyyddMM");
+    	}
+    	int year = Integer.parseInt(date.substring(0, 4));
+    	int month = Integer.parseInt(date.substring(6, date.length()));
+    	return month >= 1 && month <= 8 ? String.format("%d%d", year - 1, year) : String.format("%d%d", year, year + 1);
     }
 
 }
